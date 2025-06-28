@@ -24,6 +24,7 @@ export interface TeamInterface {
     firstHalf: TeamGameHistory[]
     secondHalf: TeamGameHistory[]
   }
+  penalties?: TeamPenalty[]
 }
 
 export interface TeamGameHistory {

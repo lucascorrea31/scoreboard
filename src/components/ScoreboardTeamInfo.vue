@@ -2,8 +2,6 @@
 import { TeamGameHistory } from '@/types';
 import { convertTime } from '@/util';
 
-const baseURL = '/src/assets/icons/';
-
 defineProps<{
   firstHalf: TeamGameHistory[],
   secondHalf: TeamGameHistory[];
@@ -11,30 +9,83 @@ defineProps<{
 </script>
 
 <template>
-  <div class="p-2 flex flex-row items-baseline">
-    <div class="border-r p-2 w-full h-full">
-      <h4 class="text-center border-b">1T</h4>
-      <div class="text-left border-b flex flex-row justify-between py-1" v-for="(item, index) in firstHalf"
-        :key="index">
-        <div class="flex-1 flex flex-wrap items-center">
-          <img class="max-h-4 invert-100" :src="baseURL + item.eventType + '.png'" :alt="item.eventType">
-        </div>
-        <div class="flex-5 text-sm flex flex-wrap items-end">#{{ item.player.number }} - {{
-          item.player.name }}
-        </div>
-        <div class="flex-1">{{ convertTime(item.time) }}</div>
+  <div class="flex flex-col items-baseline">
+    <!-- Technical pause -->
+    <div class="border p-2 w-full flex flex-row justify-between">
+      <div class="flex-2 text-lg">Tempo técnico</div>
+      <div class="flex-1 flex flex-row justify-evenly items-center">
+        <div class="technical-timeout inactive"></div>
+        <div class="technical-timeout active"></div>
       </div>
     </div>
 
-    <div class="border-l p-2 w-full h-full">
-      <h4 class="text-center border-b">2T</h4>
-      <div class="text-left border-b flex flex-row justify-between py-1" v-for="(item, index) in secondHalf"
-        :key="index">
-        <div class="flex-1 flex flex-wrap items-center"><img class="max-h-4 invert-100"
-            :src="baseURL + item.eventType + '.png'" :alt="item.eventType"></div>
-        <div class="flex-5 text-sm flex flex-wrap items-end">#{{ item.player.number }} - {{ item.player.name }}</div>
-        <div class="flex-1">{{ convertTime(item.time) }}</div>
+    <!-- Penalties -->
+    <div class="w-full max-h-[160px] overflow-hidden">
+
+      <div class="w-full flex flex-col justify-between">
+        <div class="h-12 flex flex-row items-stretch border-2 penalty-box-active">
+          <div class="flex-1 text-2xl text-center px-2 py-1">#10</div>
+          <div class="flex-9 text-3xl text-left text-white px-2 py-1 penalty-title-active">FALTA MENOR</div>
+          <div class="flex-4 text-3xl text-right px-2 py-1">{{ convertTime(32) }}</div>
+        </div>
       </div>
+
+      <div class="w-full flex flex-col justify-between">
+        <div class="h-12 flex flex-row items-stretch border-2 penalty-box-active">
+          <div class="flex-1 text-2xl text-center px-2 py-1">#15</div>
+          <div class="flex-9 text-3xl text-left text-white px-2 py-1 penalty-title-active">FALTA MENOR</div>
+          <div class="flex-4 text-3xl text-right px-2 py-1">{{ convertTime(109) }}</div>
+        </div>
+      </div>
+
+      <div class="w-full flex flex-col justify-between">
+        <div class="h-12 flex flex-row items-stretch border-2 penalty-box-inactive">
+          <div class="flex-1 text-2xl text-center px-2 py-1">#10</div>
+          <div class="flex-9 text-3xl text-left text-white px-2 py-1 penalty-title-inactive">FALTA MENOR</div>
+          <div class="flex-4 text-3xl text-right px-2 py-1">{{ convertTime(120) }}</div>
+        </div>
+      </div>
+
+      <div class="w-full flex flex-col justify-between">
+        <div class="h-12 flex flex-row items-stretch border-2 penalty-box-inactive">
+          <div class="flex-1 text-2xl text-center px-2 py-1">#10</div>
+          <div class="flex-9 text-3xl text-left text-white px-2 py-1 penalty-title-inactive">FALTA MENOR</div>
+          <div class="flex-4 text-3xl text-right px-2 py-1">{{ convertTime(120) }}</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
+
+<style scoped>
+@import "tailwindcss";
+
+.technical-timeout {
+  @apply w-18 h-6 my-1 mx-2 border-2 rounded-sm shadow shadow-gray-500
+}
+
+.technical-timeout.active {
+  @apply bg-cyan-600 border-cyan-700
+}
+
+.technical-timeout.inactive {
+  @apply bg-gray-600 border-gray-700
+}
+
+.penalty-box-active {
+  @apply border-red-700
+}
+
+.penalty-box-inactive {
+  @apply border-gray-700
+}
+
+.penalty-title-active {
+  @apply bg-red-700
+}
+
+.penalty-title-inactive {
+  @apply bg-gray-700
+}
+</style>

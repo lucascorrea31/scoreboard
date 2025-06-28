@@ -77,7 +77,59 @@ onMounted(() => {
   teamAway.value = {
     name: "Edmonton Oilers",
     logo: baseURL + "team-2.png",
-    score: 9
+    score: 9,
+    history: {
+      firstHalf: [
+        {
+          eventType: PenaltyType.PENALTY_MINOR,
+          player: {
+            number: 98,
+            name: 'Pat Demon'
+          },
+          description: '',
+          time: 273
+        },
+        {
+          eventType: PenaltyType.PENALTY_MINOR,
+          player: {
+            number: 93,
+            name: 'Lorem Ipsum'
+          },
+          description: '',
+          time: 132
+        },
+      ],
+      secondHalf: [
+        {
+          eventType: PenaltyType.MISCONDUCT,
+          player: {
+            number: 87,
+            name: 'Douglas Count'
+          },
+          description: '',
+          time: 949
+        },
+        {
+          eventType: OtherType.GOAL,
+          player: {
+            number: 4,
+            name: 'Jones Kvaratskiy'
+          },
+          description: '',
+          time: 478
+        }
+      ]
+    },
+    penalties: [
+      {
+        penaltyType: PenaltyType.PENALTY_MINOR,
+        player: {
+          number: 37,
+          name: "Lorem Ipsum",
+        },
+        time: 120
+      }
+    ]
   };
 });
 </script>
@@ -91,13 +143,15 @@ onMounted(() => {
     <div class="score-board w-full flex flex-row gap-10">
       <!-- Team Home -->
       <ScoreboardTeam class="flex-1" :team-name="teamHome.name" :team-logo="teamHome.logo" :team-score="teamHome.score"
-        :history="teamHome.history" />
+        :history="teamHome.history" :penalties="teamHome.penalties" />
 
-      <div class="border-2 border-white w-0 h-auto"></div>
+      <div class="w-fit h-auto flex flex-col">
+        <div class="text-6xl leading-80">X</div>
+      </div>
 
       <!-- Team Away -->
       <ScoreboardTeam class="flex-1" :team-name="teamAway.name" :team-logo="teamAway.logo" :team-score="teamAway.score"
-        :is-away="true" />
+        :history="teamAway.history" :penalties="teamAway.penalties" :is-away="true" />
     </div>
 
     <!-- LEGEND -->
